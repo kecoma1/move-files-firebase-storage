@@ -1,0 +1,6 @@
+[
+    {
+        "takeFrom": "/test1",
+        "moveTo": "/moveTest"
+    }
+]
