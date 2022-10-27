@@ -44,6 +44,8 @@ FIREBASE_MEASUREMENTID="G-RZ66Y5CNL0"
 
 Actions are simple. You just put the route from which you want to move something and the new route.
 
+**The actions are set in the actions.json file**
+
 For example:
 
 ```json
@@ -58,3 +60,7 @@ For example:
   }
 ]
 ```
+
+### Execute
+
+```node app```
