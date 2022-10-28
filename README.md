@@ -106,7 +106,7 @@ Actions example:
     "type": "firestore-update-route",
     "collection": "collection_test",
     "routeField": "img",
-    "moveTo": "/moveTest/" // Without params
+    "moveTo": "/moveTest/" // Without params allowed
   },
   ,
   {
