@@ -5,7 +5,6 @@ const { signIn } = require("./helpers/auth");
 const { check_keys } = require("./helpers/check");
 
 const main = async () => {
-  // Checking keys
   if (!check_keys()) return;
 
   const signInResult = await signIn();
@@ -14,7 +13,7 @@ const main = async () => {
   // Openning actions file
   const actions = read_actions();
 
-  // Traversing the actions
+  // Traversing and executing the actions
   for (action of actions) {
     execute_action(action);
   }
