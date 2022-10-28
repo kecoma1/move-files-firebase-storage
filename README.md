@@ -55,7 +55,7 @@ FIREBASE_MEASUREMENTID="*******************"
 
     ![user-id](img/user-id.png)
 
-    6.4 Go to the storage, the rules section and add the following rule (**Do not forget to remove the rule after moving your files!!**):
+    6.4 Go to the storage, to the rules section and add the following rule (**Do not forget to remove the rule after moving your files!!**):
     ```
       match /{allPaths=**} {
         allow read, write: if request.auth.uid == "<USER_ID_COPIED>";
