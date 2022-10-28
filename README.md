@@ -31,13 +31,13 @@ const firebaseConfig = {
 5. Paste them like this in the .env:
 
 ```env
-FIREBASE_API_KEY="AIzaSyDDJVkUI-eQIermNX1HzP5EjzjvDtiQY98"
-FIREBASE_AUTHDOMAIN="komaku.firebaseapp.com"
-FIREBASE_PROJECTID="komaku"
-FIREBASE_STORAGEBUCKET="komaku.appspot.com"
-FIREBASE_MESSAGINGSENDERID="28796959005"
-FIREBASE_APPID="1:28796959005:web:b8334406bee3274a7ec9f4"
-FIREBASE_MEASUREMENTID="G-RZ66Y5CNL0"
+FIREBASE_API_KEY="*******************"
+FIREBASE_AUTHDOMAIN="*******************"
+FIREBASE_PROJECTID="*******************"
+FIREBASE_STORAGEBUCKET="*******************"
+FIREBASE_MESSAGINGSENDERID="*******************"
+FIREBASE_APPID="*******************"
+FIREBASE_MEASUREMENTID="*******************"
 ```
 
 ### Set the actions
