@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 const { ref, listAll, getBytes, getMetadata, uploadBytes } = require("firebase/storage");
-const { collection, getDocs } = require("firebase/firestore");
+const { collection, getDocs, setDoc } = require("firebase/firestore");
 var ab2str = require('arraybuffer-to-string');
 
 const { storage, db } = require("../firebase");
@@ -49,6 +49,8 @@ const download_upload_file = async (reference, to) => {
   }).catch((error) => {
     console.log('[ERROR] - FAILED! - File', metadata.name, 'not moved!\nErorr:', error);
   })
+
+  return to+'/'+metadata.name;
 };
 
 const read_actions = () => {
@@ -73,7 +75,7 @@ const execute_action = async (action = {}) => {
     }
   } else if (action.type === 'firestore-update-route') {
     const querySnapshot = await getDocs(collection(db, action.collection));
-    querySnapshot.forEach((doc) => {
+    querySnapshot.forEach(async (doc) => {
       const document = doc.data();
 
       // Getting the final route where the storage img/object is going to be stored 
@@ -83,7 +85,12 @@ const execute_action = async (action = {}) => {
       const reference = ref(storage, document[action.routeField]);
 
       // Moving the file
-      download_upload_file(reference, move_to);
+      const fileRoute = await download_upload_file(reference, move_to);
+
+      // Updating the firestore object
+      setDoc(doc.ref, {[action.routeField]: fileRoute});
+      console.log('[INFO] - Sucess! - Firestore document updated!', document[action.routeField], '->', fileRoute);
+
     })
   }
 };
