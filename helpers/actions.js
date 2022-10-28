@@ -36,21 +36,23 @@ const move_files_from_folder = async (reference, to) => {
   }
 }
 
-const download_upload_file = async (reference, to) => {
+const download_upload_file = async (reference, to, name = undefined) => {
   // Downloading the file the file
   const metadata = await getMetadata(reference);
   const file = await getBytes(reference);
 
-  const toRef = ref(storage, to+'/'+metadata.name);
+  const file_name = name ? name+'.'+metadata.name.split('.')[1] : metadata.name
+
+  const toRef = ref(storage, to+'/'+file_name);
 
   // Uploading the file to the referenced folder
   uploadBytes(toRef, file).then((snapshot) => {
-    console.log('[INFO] - Sucess! - File', metadata.name, 'moved to:', snapshot.metadata.fullPath);
+    console.log('[INFO] - Sucess! - File', file_name, 'moved to:', snapshot.metadata.fullPath);
   }).catch((error) => {
-    console.log('[ERROR] - FAILED! - File', metadata.name, 'not moved!\nErorr:', error);
+    console.log('[ERROR] - FAILED! - File', file_name, 'not moved!\nErorr:', error);
   })
 
-  return to+'/'+metadata.name;
+  return to+'/'+file_name;
 };
 
 const read_actions = () => {
@@ -86,6 +88,25 @@ const execute_action = async (action = {}) => {
 
       // Moving the file
       const fileRoute = await download_upload_file(reference, move_to);
+
+      // Updating the firestore object
+      setDoc(doc.ref, {[action.routeField]: fileRoute});
+      console.log('[INFO] - Sucess! - Firestore document updated!', document[action.routeField], '->', fileRoute);
+
+    })
+  } else if (action.type === 'firestore-update-route-name') {
+    const querySnapshot = await getDocs(collection(db, action.collection));
+    querySnapshot.forEach(async (doc) => {
+      const document = doc.data();
+
+      // Getting the final route where the storage img/object is going to be stored 
+      const move_to = getFinalRoute(action.params, action.moveTo, doc, document);
+
+      // Getting the reference of the object
+      const reference = ref(storage, document[action.routeField]);
+
+      // Moving the file
+      const fileRoute = await download_upload_file(reference, move_to, action.newName);
 
       // Updating the firestore object
       setDoc(doc.ref, {[action.routeField]: fileRoute});

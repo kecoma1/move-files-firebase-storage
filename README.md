@@ -78,8 +78,12 @@ Actions are simple. You just put the route from which you want to move something
 There are several types of actions:
 * **simple-move**: Simply moves all the content in the ***takeFrom*** route and puts it in the ***moveTo*** route.
 * **firestore-update-route**: Taking into account the ***collection***, it takes all the elements in that collection, then it checks the ***routeField*** in the firestore element and finally it moves the file in the storage to the ***moveTo*** route while it updates the entry in the firestore object. You can add extra folders into de route by adding ***params*** (optional). Each param needs a ***name*** (name of the field in the firestore element) and a ***representation*** (string representing that field in the *moveTo* string). ***If you want to use this option, the same rule added to the storage must be added to the firestore***.
-* **firestore-update-route-name**: The same as firestore-update-route but it changes the name of the file. The new name is common and it should be represented in the ***newName*** field (extension of the file is not changed).
-For example:
+* **firestore-update-route-name**: The same as firestore-update-route but it changes the name of the file. The new name is common and it should be represented in the ***newName*** field (extension of the file is not changed). ***THE CODE ASSUMES THAT THERE ARE NOT '.' IN THE NAME***.
+  For example:
+      * **Valid names**: adjnajajnjad.gif, aidon42aiu12na.png.
+      * **Invalid names**: 123.23.gif, adicad.gadifa.png
+
+Actions example:
 
 ```json
 [
