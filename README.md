@@ -8,11 +8,11 @@ To get those variables:
 
 2. Then select the configuration icon:
 
-![configuration](img/conf.png)
+    ![configuration](img/conf.png)
 
 3. Then select "configuracion del proyecto":
 
-![configuration](img/conf-proy.png)
+    ![configuration](img/conf-proy.png)
 
 4. Scroll and take the keys from this object:
 
