@@ -90,6 +90,8 @@ For example:
 ]
 ```
 
+The action is the object which is within a list, you can put as many actions as you want in the list, so that in one execution you move everything you want.
+
 ### Execute
 
 ```
