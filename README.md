@@ -92,4 +92,6 @@ For example:
 
 ### Execute
 
-```node app```
+```
+node app
+```
