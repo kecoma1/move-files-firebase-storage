@@ -1,6 +1,11 @@
 [
-    {
-        "takeFrom": "/test1",
-        "moveTo": "/moveTest"
-    }
+  {
+    "type": "firestore-update-route",
+    "collection": "collection_test",
+    "routeField": "img",
+    "params": [
+        { "name": "id", "representation": "{id}" }
+    ],
+    "moveTo": "/moveTest/{id}"
+  }
 ]

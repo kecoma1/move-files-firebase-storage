@@ -75,17 +75,27 @@ Actions are simple. You just put the route from which you want to move something
 
 **The actions are set in the actions.json file**
 
+There are several types of actions:
+* **simple-move**: Simply moves all the content in the ***takeFrom*** route and puts it in the ***moveTo*** route.
+* **firestore-update-route**: Taking into account the ***collection***, it takes all the elements in that collection, then it checks the ***routeField*** in the firestore element and finally it moves the file in the storage to the ***moveTo*** route while it updates the entry in the firestore object. You can add extra folders into de route by adding ***params*** (optional). Each param needs a ***name*** (name of the field in the firestore element) and a ***representation*** (string representing that field in the *moveTo* string).
+
 For example:
 
 ```json
 [
   {
-    "takeFrom": "/test1/test2",
+    "type": "simple-move",
+    "takeFrom": "/test1",
     "moveTo": "/moveTest"
   },
   {
-    "takeFrom": "/test",
-    "moveTo": "/moveTest"
+    "type": "firestore-update-route",
+    "collection": "collection_test",
+    "routeField": "img",
+    "params": [
+      {"name": "id", "representation": "{id}"}
+    ]
+    "moveTo": "/moveTest/{id}"
   }
 ]
 ```
