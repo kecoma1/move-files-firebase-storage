@@ -25,7 +25,7 @@ const download_upload_file = async (reference, to) => {
 
   // Uploading the file to the referenced folder
   uploadBytes(toRef, file).then((snapshot) => {
-    console.log('[INFO] - Sucess! - File', metadata.name, 'moved!');
+    console.log('[INFO] - Sucess! - File', metadata.name, 'moved to:', snapshot.metadata.fullPath);
   }).catch((error) => {
     console.log('[ERROR] - FAILED! - File', metadata.name, 'not moved!\nErorr:', error);
   })
