@@ -1,5 +1,7 @@
 const check_keys = () => {
   if (
+    !process.env.FIREBASE_AUTH_EMAIL ||
+    !process.env.FIREBASE_AUTH_PASSWORD ||
     !process.env.FIREBASE_API_KEY ||
     !process.env.FIREBASE_AUTHDOMAIN ||
     !process.env.FIREBASE_PROJECTID ||
@@ -19,6 +21,8 @@ const check_keys = () => {
     console.log("\t\tFIREBASE_MESSAGINGSENDERID=example");
     console.log("\t\tFIREBASE_APPID=example");
     console.log("\t\tFIREBASE_MEASUREMENTID=example");
+    console.log("\t\tFIREBASE_AUTH_EMAIL=example");
+    console.log("\t\tFIREBASE_AUTH_PASSWORD=example");
 
     return false;
   }
