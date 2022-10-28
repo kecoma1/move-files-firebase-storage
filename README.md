@@ -28,7 +28,7 @@ const firebaseConfig = {
 };
 ```
 
-5. Paste them like this in the .env:
+5. Paste them like this in the .env (create a file called .env):
 
 ```env
 FIREBASE_API_KEY="*******************"
@@ -39,6 +39,35 @@ FIREBASE_MESSAGINGSENDERID="*******************"
 FIREBASE_APPID="*******************"
 FIREBASE_MEASUREMENTID="*******************"
 ```
+
+6. Create a user in the authentication field of firebase. This is to ignore the **rules** you have created.
+
+  6.1. Go to the authentication menu:
+  
+  ![auth-folder](img/auth.png)
+
+  6.2. Click on add user and put an email and a password:
+  
+  ![add-user](img/add-user.png)
+  ![set-user](img/set-user.png)
+
+  6.3. Take the userID.
+
+  ![user-id](img/user-id.png)
+
+  6.4 Go to the storage, the rules section and add the following rule (**Do not forget to remove the rule after moving your files!!**):
+  ```
+    match /{allPaths=**} {
+    	allow read, write: if request.auth.uid == "<USER_ID_COPIED>";
+    }
+  ```
+
+  6.5. Add the user and the password into the .env:
+  ```env
+  FIREBASE_AUTH_EMAIL="*******************"
+  FIREBASE_AUTH_PASSWORD="*******************"
+  ```
+
 
 ### Set the actions
 
