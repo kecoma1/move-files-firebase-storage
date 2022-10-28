@@ -40,7 +40,7 @@ FIREBASE_APPID="*******************"
 FIREBASE_MEASUREMENTID="*******************"
 ```
 
-6. Create a user in the authentication field of firebase. This is to ignore the **rules** you have created.
+6. Create a user in the authentication field of firebase. This is to **ignore the rules** you have created.
 
     6.1. Go to the authentication menu:
   
