@@ -5,8 +5,7 @@
     "collection": "files",
     "field": "file",
     "params": [
-        { "name": "id", "representation": "{pid}" },
-        { "name": "id", "representation": "{newName}" }
+        { "name": "id", "representation": "{pid}" }
     ],
     "objectLocation": "test1/{pid}",
     "objectLocationField": "file"

@@ -139,6 +139,20 @@ There are several types of actions:
   }
   ```
 
+* **firestore-update-subcollection-file**: It goes to the **parentCollection** and looks for the **collection** subcollection. Then in that subcollection it looks for the **objectLocation** by accessing the **objectLocationField**. With the use of **params** the objectLocation can be generic (the information used in the params is the one of the father).
+  ```json
+  {
+    "type": "firestore-update-subcollection-file",
+    "parentCollection": "records_test",
+    "collection": "files",
+    "field": "file",
+    "params": [
+        { "name": "id", "representation": "{pid}" }
+    ],
+    "objectLocation": "test1/{pid}",
+    "objectLocationField": "file"
+  }
+  ```
 
 Actions example:
 
@@ -184,6 +198,18 @@ Actions example:
     ],
     "objectLocation": "/moveTest/{id}",
     "objectName": "avatar"
+  },
+  {
+    "type": "firestore-update-subcollection-file",
+    "parentCollection": "records_test",
+    "collection": "files",
+    "field": "file",
+    "params": [
+        { "name": "id", "representation": "{pid}" },
+        { "name": "id", "representation": "{newName}" }
+    ],
+    "objectLocation": "test1/{pid}",
+    "objectLocationField": "file"
   }
 ]
 ```
