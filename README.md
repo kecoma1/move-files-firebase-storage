@@ -16,29 +16,29 @@ To get those variables:
 
 4. Scroll and take the keys from this object:
 
-```js
-const firebaseConfig = {
-  apiKey: "***********",
-  authDomain: "***********",
-  projectId: "***********",
-  storageBucket: "***********",
-  messagingSenderId: "***********",
-  appId: "***********",
-  measurementId: "***********",
-};
-```
+    ```js
+    const firebaseConfig = {
+      apiKey: "***********",
+      authDomain: "***********",
+      projectId: "***********",
+      storageBucket: "***********",
+      messagingSenderId: "***********",
+      appId: "***********",
+      measurementId: "***********",
+    };
+    ```
 
 5. Paste them like this in the .env (create a file called .env):
 
-```env
-FIREBASE_API_KEY="*******************"
-FIREBASE_AUTHDOMAIN="*******************"
-FIREBASE_PROJECTID="*******************"
-FIREBASE_STORAGEBUCKET="*******************"
-FIREBASE_MESSAGINGSENDERID="*******************"
-FIREBASE_APPID="*******************"
-FIREBASE_MEASUREMENTID="*******************"
-```
+    ```env
+    FIREBASE_API_KEY="*******************"
+    FIREBASE_AUTHDOMAIN="*******************"
+    FIREBASE_PROJECTID="*******************"
+    FIREBASE_STORAGEBUCKET="*******************"
+    FIREBASE_MESSAGINGSENDERID="*******************"
+    FIREBASE_APPID="*******************"
+    FIREBASE_MEASUREMENTID="*******************"
+    ```
 
 6. Create a user in the authentication field of firebase. This is to **ignore the rules** you have created.
 
@@ -76,7 +76,7 @@ Actions are simple. You just put the route from which you want to move something
 **The actions are set in the actions.json file**
 
 There are several types of actions:
-* **simple-move**: Simply moves all the content in the ***takeFrom*** route and puts it in the ***moveTo*** route.
+* **simple-move**: Simply moves all the content from the ***takeFrom*** route and puts it in the ***moveTo*** route.
 * **firestore-update-route**: Taking into account the ***collection***, it takes all the elements in that collection, then it checks the ***routeField*** in the firestore element and finally it moves the file in the storage to the ***moveTo*** route while it updates the entry in the firestore object. You can add extra folders into de route by adding ***params*** (optional). Each param needs a ***name*** (name of the field in the firestore element) and a ***representation*** (string representing that field in the *moveTo* string). ***If you want to use this option, the same rule added to the storage must be added to the firestore***.
 * **firestore-update-route-name**: The same as firestore-update-route but it changes the name of the file. The new name is common and it should be represented in the ***newName*** field (extension of the file is not changed). ***THE CODE ASSUMES THAT THERE ARE NOT '.' IN THE NAME***.
   For example:
