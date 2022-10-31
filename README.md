@@ -82,7 +82,7 @@ There are several types of actions:
   For example:
       * **Valid names**: adjnajajnjad.gif, aidon42aiu12na.png.
       * **Invalid names**: 123.23.gif, adicad.gadifa.png
-
+* **firestore-update-url**: It updates the URL stored in a field in the firestore DB document. It looks for the object with a similar name to the **objectName** in the **objectLocation**. It updates the **field** in the **collection** documents. The objectLocation can be custom by using **params**. 
 Actions example:
 
 ```json
@@ -118,6 +118,16 @@ Actions example:
     ],
     "moveTo": "/moveTest/{id}",
     "newName": "avatar"
+  },
+  {
+    "type": "firestore-update-url",
+    "collection": "collection_test",
+    "field": "avatarURL",
+    "params": [
+        { "name": "id", "representation": "{id}" }
+    ],
+    "objectLocation": "/moveTest/{id}",
+    "objectName": "avatar"
   }
 ]
 ```

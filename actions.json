@@ -1,12 +1,12 @@
 [
   {
-    "type": "firestore-update-route-name",
+    "type": "firestore-update-url",
     "collection": "collection_test",
-    "routeField": "img",
+    "field": "avatarURL",
     "params": [
         { "name": "id", "representation": "{id}" }
     ],
-    "moveTo": "/moveTest/{id}",
-    "newName": "avatar"
+    "objectLocation": "/moveTest/{id}",
+    "objectName": "avatar"
   }
 ]
