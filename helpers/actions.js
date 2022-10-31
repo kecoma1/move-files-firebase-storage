@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const { ref, listAll, getBytes, getMetadata, uploadBytes } = require("firebase/storage");
+const { ref, listAll, getBytes, getMetadata, uploadBytes, getDownloadURL } = require("firebase/storage");
 const { collection, getDocs, setDoc } = require("firebase/firestore");
 var ab2str = require('arraybuffer-to-string');
 
@@ -90,7 +90,10 @@ const execute_action = async (action = {}) => {
       const fileRoute = await download_upload_file(reference, move_to);
 
       // Updating the firestore object
-      setDoc(doc.ref, {[action.routeField]: fileRoute});
+      setDoc(doc.ref, {
+        ...document,
+        [action.routeField]: fileRoute
+      });
       console.log('[INFO] - Sucess! - Firestore document updated!', document[action.routeField], '->', fileRoute);
 
     })
@@ -109,9 +112,40 @@ const execute_action = async (action = {}) => {
       const fileRoute = await download_upload_file(reference, move_to, action.newName);
 
       // Updating the firestore object
-      setDoc(doc.ref, {[action.routeField]: fileRoute});
+      setDoc(doc.ref, {
+        ...document,
+        [action.routeField]: fileRoute
+      });
       console.log('[INFO] - Sucess! - Firestore document updated!', document[action.routeField], '->', fileRoute);
 
+    })
+  } else if (action.type === 'firestore-update-url') {
+    const querySnapshot = await getDocs(collection(db, action.collection));
+    querySnapshot.forEach(async (doc) => {
+      const document = doc.data();
+
+      // Getting the route where the object is
+      const objectRoute = getFinalRoute(action.params, action.objectLocation, doc, document);
+
+      // Getting the reference of the place where the object is saved
+      const reference = ref(storage, objectRoute);
+    
+      const res = await listAll(reference);
+
+      for (item of res.items) {
+        if (item.name.includes(action.objectName)) {
+          // Getting the url of the file
+          const url = await getDownloadURL(item);
+
+          // Updating the document with the new url
+          setDoc(doc.ref, {
+            ...document,
+            [action.field]: url
+          })
+          console.log('[INFO] - Sucess! - Firestore document updated!', document[action.field], '->', url);
+          break;
+        }
+      }
     })
   }
 };
