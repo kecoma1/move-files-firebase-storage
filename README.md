@@ -101,7 +101,6 @@ Actions example:
     ],
     "moveTo": "/moveTest/{id}"
   },
-  ,
   {
     "type": "firestore-update-route",
     "collection": "collection_test",

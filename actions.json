@@ -1,8 +1,8 @@
 [
   {
-    "type": "firestore-update-url",
-    "collection": "collection_test",
-    "field": "avatarURL",
+    "type": "firestore-update-name",
+    "collection": "files",
+    "field": "file",
     "params": [
         { "name": "id", "representation": "{id}" }
     ],
