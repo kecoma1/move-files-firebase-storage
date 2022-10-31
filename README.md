@@ -77,12 +77,69 @@ Actions are simple. You just put the route from which you want to move something
 
 There are several types of actions:
 * **simple-move**: Simply moves all the content from the ***takeFrom*** route and puts it in the ***moveTo*** route.
+  ```json
+  [
+    {
+      "type": "simple-move",
+      "takeFrom": "/test1",
+      "moveTo": "/moveTest"
+    },
+  ]
+  ```
+
 * **firestore-update-route**: Taking into account the ***collection***, it takes all the elements in that collection, then it checks the ***routeField*** in the firestore element and finally it moves the file in the storage to the ***moveTo*** route while it updates the entry in the firestore object. You can add extra folders into de route by adding ***params*** (optional). Each param needs a ***name*** (name of the field in the firestore element) and a ***representation*** (string representing that field in the *moveTo* string). ***If you want to use this option, the same rule added to the storage must be added to the firestore***.
+  ```json
+  [
+    {
+      "type": "firestore-update-route",
+      "collection": "collection_test",
+      "routeField": "img",
+      "params": [
+        {"name": "id", "representation": "{id}"}
+      ],
+      "moveTo": "/moveTest/{id}"
+    },
+    {
+      "type": "firestore-update-route",
+      "collection": "collection_test",
+      "routeField": "img",
+      "moveTo": "/moveTest/" // Without params allowed
+    },
+  ]
+  ```
 * **firestore-update-route-name**: The same as firestore-update-route but it changes the name of the file. The new name is common and it should be represented in the ***newName*** field (extension of the file is not changed). ***THE CODE ASSUMES THAT THERE ARE NOT '.' IN THE NAME***.
   For example:
-      * **Valid names**: adjnajajnjad.gif, aidon42aiu12na.png.
-      * **Invalid names**: 123.23.gif, adicad.gadifa.png
+    * **Valid names**: adjnajajnjad.gif, aidon42aiu12na.png.
+    * **Invalid names**: 123.23.gif, adicad.gadifa.png
+  ```json
+  [
+    {
+      "type": "firestore-update-route-name",
+      "collection": "collection_test",
+      "routeField": "img",
+      "params": [
+        {"name": "id", "representation": "{id}"}
+      ],
+      "moveTo": "/moveTest/{id}",
+      "newName": "avatar"
+    },
+  ]
+  ```
 * **firestore-update-url**: It updates the URL stored in a field in the firestore DB document. It looks for the object with a similar name to the **objectName** in the **objectLocation**. It updates the **field** in the **collection** documents. The objectLocation can be custom by using **params**. 
+  ```json
+  {
+    "type": "firestore-update-url",
+    "collection": "collection_test",
+    "field": "avatarURL",
+    "params": [
+        { "name": "id", "representation": "{id}" }
+    ],
+    "objectLocation": "/moveTest/{id}",
+    "objectName": "avatar"
+  }
+  ```
+
+
 Actions example:
 
 ```json
@@ -131,7 +188,7 @@ Actions example:
 ]
 ```
 
-The action is the object which is within a list, you can put as many actions as you want in the list, so that in one execution you move everything you want.
+The action is the object which is within a list, you can put as many actions as you want in the list, so that in one execution you move everything you want. **DO NOT PUT ACTIONS OF DIFFERENT TYPES IN THE LIST**, there may be issues.
 
 ### Execute
 

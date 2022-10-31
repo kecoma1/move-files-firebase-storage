@@ -147,6 +147,31 @@ const execute_action = async (action = {}) => {
         }
       }
     })
+  } else if (action.type === 'firestore-update-subcollection-file') {
+    const parentSnapshot = await getDocs(collection(db, action.parentCollection));
+    // Going to the parent
+    parentSnapshot.forEach(async (parentDoc) => {
+
+      const querySnapshot = await getDocs(collection(db, action.parentCollection, parentDoc.id, action.collection));
+      // Travaersing through each child
+      querySnapshot.forEach(async (doc) => {
+        const document = doc.data();
+
+        // Getting the reference of the place where the object is 
+        const reference = ref(storage, document[action.objectLocationField]);
+
+        const objectRoute = getFinalRoute(action.params, action.objectLocation, parentDoc, parentDoc.data());
+
+        const fileRoute = await download_upload_file(reference, objectRoute, doc.id);
+
+        setDoc(doc.ref, {
+          ...document,
+          [action.objectLocationField]: fileRoute
+        })
+
+        console.log('[INFO] - Sucess! - Firestore document updated!', document[action.objectLocationField], '->', fileRoute);
+      })
+    });
   }
 };
 

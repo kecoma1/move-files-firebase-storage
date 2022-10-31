@@ -1,12 +1,14 @@
 [
   {
-    "type": "firestore-update-name",
+    "type": "firestore-update-subcollection-file",
+    "parentCollection": "records_test",
     "collection": "files",
     "field": "file",
     "params": [
-        { "name": "id", "representation": "{id}" }
+        { "name": "id", "representation": "{pid}" },
+        { "name": "id", "representation": "{newName}" }
     ],
-    "objectLocation": "/moveTest/{id}",
-    "objectName": "avatar"
+    "objectLocation": "test1/{pid}",
+    "objectLocationField": "file"
   }
 ]
